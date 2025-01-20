@@ -1,0 +1,22 @@
+# Ignorar archivos generados
+node_modules/
+.pnp.js
+.yarn/
+.npm/
+
+# Ignorar archivos de caché
+.cache/
+tmp/
+
+# Ignorar archivos de configuración locales
+config.local.js
+
+# Ignorar archivos de respaldo
+*.swp
+
+# Ignorar archivos de log
+*.log
+
+# Ignorar archivos de IDE
+.idea/
+.vscode/
