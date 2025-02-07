@@ -1,4 +1,4 @@
-exports.success = function(req, res, message,status){
+exports.success = function(req, res, message, status){
     const statusCode = status || 200;
     const messageOk = message || '';
 

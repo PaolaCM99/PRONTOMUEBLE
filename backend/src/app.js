@@ -5,6 +5,8 @@ const proveedor = require('./modules/providers/routers')
 
 
 //_____________Configuración___________
+app.use(express.json());
+app.use(express.urlencoded({extended: true}))
 app.set('port', config.app.port)
 
 // _______________Rutas_________:
