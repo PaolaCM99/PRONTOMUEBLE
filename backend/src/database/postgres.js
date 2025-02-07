@@ -14,12 +14,12 @@ async function getAll(table) {
     return await queryDatabase(sentence);
 }
 
-async function getById(table, id) {
-    const sentence = `SELECT * FROM ${table} WHERE codigoproveedor = ${id};`
+async function getById(table, id, uniqueField) {
+    const sentence = `SELECT * FROM ${table} WHERE ${uniqueField} = ${id};`
     return await queryDatabase(sentence);
 }
 
-async function setData(table, data, uniqueField = 'codigoproveedor') {
+async function setData(table, data, uniqueField) {
     const columns = Object.keys(data).join(', ');
     const values = Object.values(data);
     const placeholders = values.map((_, index) => `$${index + 1}`).join(', ');
@@ -49,8 +49,7 @@ async function setData(table, data, uniqueField = 'codigoproveedor') {
     return queryDatabase(sentence, values);    
 }
 
-
-async function deleteData(table, data, uniqueField = 'codigoproveedor') {
+async function deleteData(table, data, uniqueField) {
     const sentence = `DELETE FROM ${table} WHERE ${uniqueField} = ${data[uniqueField]}`
     return queryDatabase(sentence);
 }

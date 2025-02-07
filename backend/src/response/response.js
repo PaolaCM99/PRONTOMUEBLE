@@ -5,16 +5,17 @@ exports.success = function(req, res, message, status){
         res.status(status).send({
         error: false,
         status: statusCode,
-        body: messageOk
+        data: messageOk,
     })
 }
 
 exports.error = function(req, res, message,status){
     const statusCode = status || 500;
-    const messageError = message || 'Error interno';
+    const messageError = message || 'Error interno del servidor';
     res.status(status).send({
         error: true,
         status: statusCode,
-        body: messageError
+        body: messageError,
+        errorCode: `ERR_${statusCode}`,
     })
 }

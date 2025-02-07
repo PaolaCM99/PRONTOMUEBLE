@@ -18,9 +18,8 @@ router.get('/:id', async function (req, res) {
 })
 
 router.post('/', async function (req, res) {
-    const items = await controller.setProvider(req.body);
-    const message = req.body.codigoproveedor ? 'Actualizado' : 'Añadido';
-    response.success(req, res, items, 200);
+    const items = await controller.setCustomer(req.body);
+    response.success(req, res, items, 200)
 })
 
 router.put('/', async function (req, res) {

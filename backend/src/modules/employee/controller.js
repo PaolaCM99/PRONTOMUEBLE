@@ -1,7 +1,7 @@
-const db = require('./../../database/postgres');
+const db = require('../../database/postgres');
 
-const table = 'proveedor'
-const uniqueField = 'codigoproveedor'
+const table = 'empleado'
+const uniqueField = 'documento'
 
 function getAll(){
      return db.getAll(table)
@@ -11,7 +11,7 @@ function getById(id){
     return db.getById(table, id, uniqueField)
 }
 
-function setProvider(body){
+function setEmployee(body){
     return db.setData(table, body, uniqueField);
 }
 
@@ -21,5 +21,5 @@ function remove(body){
 
 
 module.exports = {
-    getAll, getById, remove, setProvider
+    getAll, getById, remove, setEmployee
 }
