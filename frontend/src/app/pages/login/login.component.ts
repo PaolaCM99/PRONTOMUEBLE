@@ -1,10 +1,16 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [],
-  template: './login.component.html',
-  styleUrl: './login.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
+
 })
-export class LoginComponent { }
+export class LoginComponent {
+  constructor(private router: Router) { }
+
+  login(){
+    this.router.navigate(['/inicio'])
+  }
+}

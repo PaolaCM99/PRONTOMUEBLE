@@ -1,0 +1,51 @@
+
+<header>
+  <h1>Prontomueble</h1>
+  <h2>Proveedores</h2>
+ </header>
+
+
+<!-- Tabla de Proveedores -->
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Correo</th>
+      <th>Responsable</th>
+      <th>Dirección</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let proveedor of proveedores; let i = index">
+      <td>{{ proveedor.nombre }}</td>
+      <td>{{ proveedor.correo }}</td>
+      <td>{{ proveedor.responsable }}</td>
+      <td>{{ proveedor.direccion }}</td>
+      <td>
+        <button (click)="editarProveedor(i)">Editar</button>
+        <button (click)="eliminarProveedor(i)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<div class="proveedor-form">
+    <h2>Agregar Proveedor</h2>
+    <form>
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" name="nombre" required />
+
+      <label for="correo">Correo:</label>
+      <input type="email" id="correo" name="correo" required />
+
+      <label for="responsable">Responsable:</label>
+      <input type="text" id="responsable" name="responsable" required />
+
+      <label for="direccion">Dirección:</label>
+      <input type="text" id="direccion" name="direccion" required />
+
+      <button type="submit">Guardar</button>
+    </form>
+  </div>
