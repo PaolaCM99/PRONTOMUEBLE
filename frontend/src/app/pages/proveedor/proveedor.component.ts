@@ -24,9 +24,9 @@ export class ProveedorComponent implements OnInit {
     this.proveedores.splice(index, 1);
   }
 
-
   editarProveedor(index: number) {
     this.proveedorEdicion = { ...this.proveedores[index] }; // Clonamos el objeto para evitar referencias
+    console.log(this.proveedorEdicion);
   }
 
   getProviders() {

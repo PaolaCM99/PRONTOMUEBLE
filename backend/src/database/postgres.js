@@ -15,7 +15,7 @@ async function getAll(table) {
 }
 
 async function getById(table, id, uniqueField) {
-    const sentence = `SELECT * FROM ${table} WHERE ${uniqueField} = ${id};`
+    const sentence = `SELECT * FROM ${table} WHERE ${uniqueField}::INTEGER = ${id};`
     return await queryDatabase(sentence);
 }
 
@@ -50,7 +50,7 @@ async function setData(table, data, uniqueField) {
 }
 
 async function deleteData(table, data, uniqueField) {
-    const sentence = `DELETE FROM ${table} WHERE ${uniqueField} = ${data[uniqueField]}`
+    const sentence = `DELETE FROM ${table} WHERE ${uniqueField}::INTEGER = ${data[uniqueField]}`
     return queryDatabase(sentence);
 }
 

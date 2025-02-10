@@ -24,14 +24,14 @@
       <td>{{ proveedor.direccion }}</td>
       <td>
         <button (click)="editarProveedor(i)">Editar</button>
-        <button (click)="eliminarProveedor(i)">Eliminar</button>
+        <button (click)="eliminarProveedor(i)" class="eliminar">Eliminar</button>
       </td>
     </tr>
   </tbody>
 </table>
 
-
-<div class="proveedor-form">
+<div class="modal-proveedor">
+  |<div class="proveedor-form">
     <h2>Agregar Proveedor</h2>
     <form>
       <label for="nombre">Nombre:</label>
@@ -49,3 +49,5 @@
       <button type="submit">Guardar</button>
     </form>
   </div>
+</div>
+

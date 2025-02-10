@@ -13,8 +13,13 @@ router.get('/', async function (req, res) {
 })
 
 router.get('/:id', async function (req, res) {
-    const items = await controller.getById(req.params.id);
-    response.success(req, res, items, 200)
+    try {
+        const items = await controller.getById(req.params.id);
+        response.success(req, res, items, 200)
+    } catch (error) {
+        response.error(req, res, error, 500)
+    }
+   
 })
 
 router.post('/', async function (req, res) {
