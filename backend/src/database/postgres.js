@@ -30,20 +30,30 @@ async function setData(table, data, uniqueField) {
             .map((key, index) => `${key} = $${index + 2}`)
             .join(', ');
 
-    if(!data[uniqueField]){
-        sentence =  `
-        INSERT INTO ${table} (${columns}) 
-        VALUES (${placeholders}) 
-        RETURNING *;
+            let checkExistenceQuery = `
+            SELECT 1 FROM ${table} WHERE ${uniqueField} = $1 LIMIT 1;
         `;
+        
+    const existingData = await queryDatabase(checkExistenceQuery, [data[uniqueField]]);
 
+    if (existingData && existingData.length > 0) {
+        const setClause = Object.keys(data)
+            .filter(key => key !== uniqueField)  
+            .map((key, index) => `${key} = $${index + 2}`)
+            .join(', ');
+
+        sentence = `
+            UPDATE ${table}
+            SET ${setClause}
+            WHERE ${uniqueField} = $1
+            RETURNING *;
+        `;
     } else {
         sentence = `
-        UPDATE ${table}
-        SET ${setClause}
-        WHERE ${uniqueField} = $1
-        RETURNING *;
-    `;
+            INSERT INTO ${table} (${columns}) 
+            VALUES (${placeholders}) 
+            RETURNING *;
+        `;
     }
 
     return queryDatabase(sentence, values);    
