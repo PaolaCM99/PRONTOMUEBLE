@@ -23,13 +23,22 @@ router.post('/', async function (req, res) {
     response.success(req, res, items, 200);
 })
 
+router.delete('/:id', async function (req, res) {
+    try {
+      const result = await controller.remove({ codigoproveedor: req.params.id });
+      response.success(req, res, result, 200);
+    } catch (error) {
+      response.error(req, res, error, 500);
+    }
+  });
+
 router.put('/', async function (req, res) {
     try {
-        controller.remove(req.body);
-        response.success(req, res, 'Se ha eliminado correctamente', 200)
+        const updatedItem = await controller.updateProvider(req.body);
+        response.success(req, res, updatedItem, 200);
     } catch (error) {
-        response.error(req, res, error, 500)
+        response.error(req, res, error, 500);
     }
-})
+});
 
 module.exports = router;
