@@ -3,7 +3,7 @@ const pool = require('./connection')
 async function queryDatabase(sql, params = []) {
     try {
         const result = await pool.query(sql, params);
-        return  result.rows ;
+        return result.rows;
     } catch (error) {
         return error;
     }
@@ -19,26 +19,25 @@ async function getById(table, id, uniqueField) {
     return await queryDatabase(sentence);
 }
 
+async function deleteData(table, data, uniqueField) {
+    const sentence = `DELETE FROM ${table} WHERE ${uniqueField}::INTEGER = ${data[uniqueField]};`
+    console.log(sentence, queryDatabase(sentence));
+    return queryDatabase(sentence);
+}
+
 async function setData(table, data, uniqueField) {
     const columns = Object.keys(data).join(', ');
     const values = Object.values(data);
     const placeholders = values.map((_, index) => `$${index + 1}`).join(', ');
     let sentence = '';
-
-    const setClause = Object.keys(data)
-            .filter(key => key !== uniqueField)  
-            .map((key, index) => `${key} = $${index + 2}`)
-            .join(', ');
-
-            let checkExistenceQuery = `
-            SELECT 1 FROM ${table} WHERE ${uniqueField} = $1 LIMIT 1;
-        `;
-        
+    let checkExistenceQuery = `
+        SELECT 1 FROM ${table} WHERE ${uniqueField} = $1 LIMIT 1;
+    `;
     const existingData = await queryDatabase(checkExistenceQuery, [data[uniqueField]]);
 
     if (existingData && existingData.length > 0) {
         const setClause = Object.keys(data)
-            .filter(key => key !== uniqueField)  
+            .filter(key => key !== uniqueField)
             .map((key, index) => `${key} = $${index + 2}`)
             .join(', ');
 
@@ -56,12 +55,7 @@ async function setData(table, data, uniqueField) {
         `;
     }
 
-    return queryDatabase(sentence, values);    
-}
-
-async function deleteData(table, data, uniqueField) {
-    const sentence = `DELETE FROM ${table} WHERE ${uniqueField}::INTEGER = ${data[uniqueField]}`
-    return queryDatabase(sentence);
+    return queryDatabase(sentence, values);
 }
 
 module.exports = {
