@@ -15,11 +15,18 @@ function setProvider(body){
     return db.setData(table, body, uniqueField);
 }
 
-function remove(body){
-    return db.deleteData(table, body, uniqueField)
+function updateProvider(body){
+    return db.updateData(table, body, uniqueField);
 }
 
+function remove(body){
+    return db.deleteData(table, body, uniqueField);
+}
 
 module.exports = {
-    getAll, getById, remove, setProvider
+    getAll,
+    getById,
+    setProvider,
+    updateProvider,
+    remove
 }

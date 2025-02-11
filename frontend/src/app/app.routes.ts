@@ -9,6 +9,7 @@ import { MuebleComponent } from './pages/mueble/mueble.component';
 import { VentaComponent } from './pages/ventas/ventas.component';
 import { ReportesComponent } from './pages/reportes/reportes.component';
 
+
 export const routes: Routes = [
   // { path: '', redirectTo: 'inicio', pathMatch: 'full' }, // Cliente será la primera vista
   { path: '', component: LoginComponent },
@@ -21,3 +22,4 @@ export const routes: Routes = [
   { path: 'ventas', component: VentaComponent },
   { path: 'reportes', component: ReportesComponent },
 ];
+

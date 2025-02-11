@@ -1,11 +1,8 @@
-
 <header>
   <h1>Prontomueble</h1>
   <h2>Proveedores</h2>
- </header>
+</header>
 
-
-<!-- Tabla de Proveedores -->
 <table>
   <thead>
     <tr>
@@ -17,37 +14,39 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let proveedor of proveedores; let i = index">
+    <tr *ngFor="let proveedor of proveedores">
       <td>{{ proveedor.nombre }}</td>
       <td>{{ proveedor.correo }}</td>
       <td>{{ proveedor.responsable }}</td>
       <td>{{ proveedor.direccion }}</td>
       <td>
-        <button (click)="editarProveedor(i)">Editar</button>
-        <button (click)="eliminarProveedor(i)" class="eliminar">Eliminar</button>
+        <button (click)="editarProveedor(proveedor)">Editar</button>
+        <button (click)="eliminarProveedor(proveedor)" class="eliminar">Eliminar</button>
       </td>
     </tr>
   </tbody>
 </table>
 
-<div class="modal-proveedor">
-  |<div class="proveedor-form">
-    <h2>Agregar Proveedor</h2>
-    <form>
+<button (click)="abrirFormulario()">Agregar Proveedor</button>
+
+<div class="modal-proveedor" *ngIf="mostrarFormulario">
+  <div class="proveedor-form">
+    <h2>{{ editando ? 'Editar Proveedor' : 'Agregar Proveedor' }}</h2>
+    <form (ngSubmit)="guardarProveedor()">
       <label for="nombre">Nombre:</label>
-      <input type="text" id="nombre" name="nombre" required />
+      <input type="text" id="nombre" [(ngModel)]="proveedorForm.nombre" name="nombre" required />
 
       <label for="correo">Correo:</label>
-      <input type="email" id="correo" name="correo" required />
+      <input type="email" id="correo" [(ngModel)]="proveedorForm.correo" name="correo" required />
 
       <label for="responsable">Responsable:</label>
-      <input type="text" id="responsable" name="responsable" required />
+      <input type="text" id="responsable" [(ngModel)]="proveedorForm.responsable" name="responsable" required />
 
       <label for="direccion">Dirección:</label>
-      <input type="text" id="direccion" name="direccion" required />
+      <input type="text" id="direccion" [(ngModel)]="proveedorForm.direccion" name="direccion" required />
 
-      <button type="submit">Guardar</button>
+      <button type="submit">{{ editando ? 'Actualizar' : 'Guardar' }}</button>
+      <button type="button" (click)="cerrarFormulario()">Cancelar</button>
     </form>
   </div>
 </div>
-

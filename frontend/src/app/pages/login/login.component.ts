@@ -1,3 +1,4 @@
+
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -7,6 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss'],
 
 })
+
 export class LoginComponent {
   constructor(private router: Router) { }
 
@@ -14,3 +16,4 @@ export class LoginComponent {
     this.router.navigate(['/inicio'])
   }
 }
+
