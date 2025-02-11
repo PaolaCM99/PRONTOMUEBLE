@@ -4,7 +4,7 @@ import { ProveedorComponent } from './pages/proveedor/proveedor.component';
 import { ClienteComponent } from './pages/cliente/cliente.component';
 import { PagoComponent } from './pages/pago/pago.component';
 import { InicioComponent } from './pages/inicio/inicio.component';
-import { EmpleadosComponent } from './pages/empleados/empleados.component';
+import { EmpleadoComponent } from './pages/empleados/empleados.component';
 import { MuebleComponent } from './pages/mueble/mueble.component';
 import { VentaComponent } from './pages/ventas/ventas.component';
 import { ReportesComponent } from './pages/reportes/reportes.component';
@@ -16,7 +16,7 @@ export const routes: Routes = [
   { path: 'pago', component: PagoComponent },
   { path: 'inicio', component: InicioComponent },
   { path: 'cliente', component: ClienteComponent },
-  { path: 'empleados', component: EmpleadosComponent },
+  { path: 'empleados', component: EmpleadoComponent },
   { path: 'muebles', component: MuebleComponent },
   { path: 'ventas', component: VentaComponent },
   { path: 'reportes', component: ReportesComponent },

@@ -1,22 +1,57 @@
-<div class="empleado-container">
-    <h2>Registro de Empleado</h2>
-    <form>
+<header>
+  <h1>Prontomueble</h1>
+  <h2>Empleados</h2>
+</header>
+
+<table>
+  <thead>
+    <tr>
+      <th>Documento</th>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Dirección</th>
+      <th>Correo Electrónico</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let empleado of empleados; trackBy: trackById">
+      <td>{{ empleado.documento }}</td>
+      <td>{{ empleado.nombre }}</td>
+      <td>{{ empleado.apellido }}</td>
+      <td>{{ empleado.direccion }}</td>
+      <td>{{ empleado.correo }}</td>
+      <td>
+        <button type="button" (click)="editarEmpleado(empleado)">Editar</button>
+        <button type="button" (click)="eliminarEmpleado(empleado)" class="eliminar">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<button type="button" (click)="abrirFormulario()">Agregar Empleado</button>
+
+<div class="modal-empleado" *ngIf="mostrarFormulario">
+  <div class="empleado-form">
+    <h2>{{ editando ? 'Editar Empleado' : 'Agregar Empleado' }}</h2>
+    <form (ngSubmit)="guardarEmpleado()">
       <label for="documento">Documento:</label>
-      <input type="text" id="documento" required>
-  
+      <input type="text" id="documento" [(ngModel)]="empleadoForm.documento" name="documento" required />
+
       <label for="nombre">Nombre:</label>
-      <input type="text" id="nombre" required>
-  
+      <input type="text" id="nombre" [(ngModel)]="empleadoForm.nombre" name="nombre" required />
+
       <label for="apellido">Apellido:</label>
-      <input type="text" id="apellido" required>
-  
+      <input type="text" id="apellido" [(ngModel)]="empleadoForm.apellido" name="apellido" required />
+
       <label for="direccion">Dirección:</label>
-      <input type="text" id="direccion" required>
-  
+      <input type="text" id="direccion" [(ngModel)]="empleadoForm.direccion" name="direccion" required />
+
       <label for="correo">Correo Electrónico:</label>
-      <input type="email" id="correo" required>
-  
-      <button type="submit">Registrar Empleado</button>
+      <input type="email" id="correo" [(ngModel)]="empleadoForm.correo" name="correo" required />
+
+      <button type="submit">{{ editando ? 'Actualizar' : 'Guardar' }}</button>
+      <button type="button" (click)="cerrarFormulario()">Cancelar</button>
     </form>
   </div>
-  
+</div>
