@@ -1,0 +1,33 @@
+<div class="pago-container">
+    <h2>Registrar Pago</h2>
+    
+    <form>
+      <div class="form-group">
+        <label for="codigoPago">Código de Pago:</label>
+        <input type="number" id="codigoPago" placeholder="Ingrese el código" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="valor">Valor:</label>
+        <input type="number" id="valor" placeholder="Ingrese el monto" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="metodo">Método de Pago:</label>
+        <select id="metodo" required>
+          <option value="">Seleccione un método</option>
+          <option value="Efectivo">Efectivo</option>
+          <option value="Tarjeta de Crédito">Tarjeta de Crédito</option>
+          <option value="Transferencia">Transferencia</option>
+        </select>
+      </div>
+  
+      <button type="submit" class="btn-registrar">Registrar Pago</button>
+    </form>
+  </div>
+  

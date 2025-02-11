@@ -18,6 +18,10 @@
     "@angular/platform-browser": "^19.1.0",
     "@angular/platform-browser-dynamic": "^19.1.0",
     "@angular/router": "^19.1.0",
+<<<<<<< HEAD
+=======
+    "frontend": "file:",
+>>>>>>> 1fa1269 (agregando funciones backend y frontend)
     "ng-zorro-antd": "^19.0.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
