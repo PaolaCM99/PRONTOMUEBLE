@@ -46,10 +46,17 @@ async function deleteData(table, data, uniqueField) {
   return queryDatabase(sentence, [data[uniqueField]]);
 }
 
+async function authUser(table, authData, uniqueField) {
+  const sentence = `SELECT EXISTS (SELECT 1 FROM ${table} u JOIN EMPLEADO e ON u.codigousuario = e.${uniqueField} WHERE e.correo = '${authData.correo}' AND u.contraseña = '${authData.contrasena}') AS contraseña_valida;`;
+  return await queryDatabase(sentence);
+}
+
+
 module.exports = {
   getAll,
   getById,
   setData,
   updateData,
-  deleteData
+  deleteData,
+  authUser
 };

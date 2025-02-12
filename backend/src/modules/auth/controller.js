@@ -1,29 +1,27 @@
 const db = require('../../database/postgres');
 
-const table = 'autenticacion'
-const uniqueField = 'id'
+const table = 'USUARIO';
+const uniqueField = 'codigousuario_fk';
 
 
 
-function setCustomer(data){
+function authUser(data){
 
-    const authData = {
-        id: data.id,
+    let authData = {};
 
-    }
-    if(data.usuario){
-        authData.usuario = data.usuario;
+    if(data.correo){
+        authData.correo = data.correo;
     }
 
     if(data.contrasena){
         authData.contrasena = data.contrasena;
     }
 
-    return db.setData(table, authData);
+    return db.authUser(table, authData, uniqueField);
 }
 
 
 
 module.exports = {
-    getAll, getById, remove, setCustomer
+    authUser
 }

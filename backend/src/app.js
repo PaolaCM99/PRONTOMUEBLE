@@ -4,7 +4,8 @@ const config = require('./config')
 const app = express();
 const proveedor = require('./modules/providers/routers');
 const customer = require('./modules/customer/routers');
-const employee = require('./modules/employee/routers')
+const employee = require('./modules/employee/routers');
+const auth = require('./modules/auth/routers');
 
 
 //_____________Configuración___________
@@ -19,6 +20,7 @@ app.set('port', config.app.port)
 app.use('/proveedores', proveedor);
 app.use('/clientes', customer)
 app.use('/empleados', employee)
+app.use('/autenticacion', auth)
 
 
 module.exports = app;
