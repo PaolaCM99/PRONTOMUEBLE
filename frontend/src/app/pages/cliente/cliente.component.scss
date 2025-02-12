@@ -1,48 +1,135 @@
-.cliente-container {
-    width: 100%;
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  
-    h2 {
-      color: #333;
-    }
-  
-    form {
-      display: flex;
-      flex-direction: column;
-  
-      label {
-        font-weight: bold;
-        margin-top: 10px;
-        text-align: left;
-      }
-  
-      input {
-        padding: 8px;
-        margin-top: 5px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-      }
-  
-      button {
-        margin-top: 15px;
-        padding: 10px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-      }
-  
-      button:hover {
-        background-color: #0056b3;
-      }
+/* ============================
+   Estilos Globales y Header
+=============================== */
+header {
+  text-align: center;
+  background-color: #343a40;
+  color: #fff;
+  padding: 1rem;
+
+  h1 {
+    margin: 0;
+    font-size: 2rem;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: normal;
+    opacity: 0.8;
+  }
+}
+
+/* ============================
+         Tabla de Clientes
+=============================== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+
+  thead {
+    background-color: #f8f9fa;
+  }
+
+  th,
+  td {
+    padding: 0.75rem;
+    border: 1px solid #dee2e6;
+    text-align: left;
+  }
+
+  tbody {
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
     }
   }
-  
+}
+
+/* ============================
+             Botones
+=============================== */
+button {
+  padding: 0.5rem 1rem;
+  margin: 0.2rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+
+  &.eliminar {
+    background-color: #dc3545;
+
+    &:hover {
+      background-color: #c82333;
+    }
+  }
+
+  /* Botón Agregar Cliente */
+  &:not(.eliminar) {
+    background-color: #28a745;
+
+    &:hover {
+      background-color: #218838;
+    }
+  }
+}
+
+/* ============================
+          Modal y Formulario
+=============================== */
+.modal-cliente {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.cliente-form {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    margin-top: 0;
+    text-align: center;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      margin: 0.5rem 0 0.2rem;
+      font-weight: bold;
+    }
+
+    input {
+      padding: 0.5rem;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+
+    button {
+      margin-top: 0.5rem;
+    }
+  }
+}

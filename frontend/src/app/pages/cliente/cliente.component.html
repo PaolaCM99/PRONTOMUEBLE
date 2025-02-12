@@ -1,22 +1,57 @@
-<div class="cliente-container">
-    <h2>Registro de Cliente</h2>
-    <form>
+<header>
+  <h1>Prontomueble</h1>
+  <h2>Clientes</h2>
+</header>
+
+<table>
+  <thead>
+    <tr>
+      <th>Documento</th>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Dirección</th>
+      <th>Correo Electrónico</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cliente of clientes; trackBy: trackById">
+      <td>{{ cliente.documento }}</td>
+      <td>{{ cliente.nombre }}</td>
+      <td>{{ cliente.apellido }}</td>
+      <td>{{ cliente.direccion }}</td>
+      <td>{{ cliente.correo }}</td>
+      <td>
+        <button type="button" (click)="editarCliente(cliente)">Editar</button>
+        <button type="button" (click)="eliminarCliente(cliente)" class="eliminar">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<button type="button" (click)="abrirFormulario()">Agregar Cliente</button>
+
+<div class="modal-cliente" *ngIf="mostrarFormulario">
+  <div class="cliente-form">
+    <h2>{{ editando ? 'Editar Cliente' : 'Agregar Cliente' }}</h2>
+    <form (ngSubmit)="guardarCliente()">
       <label for="documento">Documento:</label>
-      <input type="text" id="documento" required>
-  
+      <input type="text" id="documento" [(ngModel)]="clienteForm.documento" name="documento" required />
+
       <label for="nombre">Nombre:</label>
-      <input type="text" id="nombre" required>
-  
+      <input type="text" id="nombre" [(ngModel)]="clienteForm.nombre" name="nombre" required />
+
       <label for="apellido">Apellido:</label>
-      <input type="text" id="apellido" required>
-  
+      <input type="text" id="apellido" [(ngModel)]="clienteForm.apellido" name="apellido" required />
+
       <label for="direccion">Dirección:</label>
-      <input type="text" id="direccion" required>
-  
+      <input type="text" id="direccion" [(ngModel)]="clienteForm.direccion" name="direccion" required />
+
       <label for="correo">Correo Electrónico:</label>
-      <input type="email" id="correo" required>
-  
-      <button type="submit">Registrar Cliente</button>
+      <input type="email" id="correo" [(ngModel)]="clienteForm.correo" name="correo" required />
+
+      <button type="submit">{{ editando ? 'Actualizar' : 'Guardar' }}</button>
+      <button type="button" (click)="cerrarFormulario()">Cancelar</button>
     </form>
   </div>
-  
+</div>
