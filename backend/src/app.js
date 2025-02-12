@@ -7,7 +7,7 @@ const customer = require('./modules/customer/routers');
 const employee = require('./modules/employee/routers');
 const auth = require('./modules/auth/routers');
 const report = require('./modules/reports/routers');
-
+const muebles = require ('./modules/mueble/routers');
 
 //_____________Configuración___________
 app.use(express.json());
@@ -21,6 +21,8 @@ app.set('port', config.app.port)
 app.use('/proveedores', proveedor);
 app.use('/clientes', customer)
 app.use('/empleados', employee)
+app.use('/muebles', muebles)
+
 app.use('/autenticacion', auth)
 app.use('/reportes', report)
 
