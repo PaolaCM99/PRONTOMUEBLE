@@ -22,7 +22,6 @@ export class MuebleComponent implements OnInit {
   API_PROVEEDORES = 'http://localhost:4000/proveedores'; // Para listar proveedores en el formulario
 
   muebleForm: any = {
-    id: null,
     color: '',
     precio: 0,
     material: '',
@@ -59,6 +58,7 @@ export class MuebleComponent implements OnInit {
     this.http.get(this.API_PROVEEDORES).subscribe(
       (response: any) => {
         this.proveedores = response.data || [];
+        console.log("Proveedores:", this.proveedores);
       },
       (error) => {
         console.error("Error al obtener proveedores:", error);
@@ -102,7 +102,7 @@ export class MuebleComponent implements OnInit {
 
   guardarMueble() {
     console.log("📤 Datos antes de enviar:", this.muebleForm);
-  
+
     // Validar y corregir codigoProveedor_fk
     if (!this.muebleForm.codigoProveedor_fk || this.muebleForm.codigoProveedor_fk === "undefined") {
       console.warn("⚠️ Ajustando codigoProveedor_fk inválido");
@@ -110,7 +110,7 @@ export class MuebleComponent implements OnInit {
     } else {
       this.muebleForm.codigoProveedor_fk = parseInt(this.muebleForm.codigoProveedor_fk, 10);
     }
-  
+
     // Validar que todos los campos requeridos tengan valores correctos
     if (!this.muebleForm.color || !this.muebleForm.precio || !this.muebleForm.material ||
         !this.muebleForm.tipo || !this.muebleForm.descripcion || !this.muebleForm.ancho ||
@@ -120,15 +120,16 @@ export class MuebleComponent implements OnInit {
       alert("Todos los campos son obligatorios.");
       return;
     }
-  
+
     let nuevoMueble = { ...this.muebleForm };
-  
+
     // Eliminar id si no se está editando
     if (!this.editando) {
       delete nuevoMueble.id;
     }
-  
+
     if (!this.editando) {
+      console.log("📤 Nuevo mueble:", nuevoMueble);
       this.http.post(this.API_URL, nuevoMueble).subscribe(
         (response: any) => {
           console.log("✅ Mueble agregado:", response);
@@ -156,8 +157,8 @@ export class MuebleComponent implements OnInit {
   convertirANumero(valor: any): number {
     return parseInt(valor, 10);
   }
-  
-  
+
+
   cerrarFormulario() {
     this.mostrarFormulario = false;
   }

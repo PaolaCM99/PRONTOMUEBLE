@@ -16,7 +16,7 @@ function getById(id) {
 
 function setMueble(body) {
     if (!body.color || !body.precio || !body.material || !body.tipo || !body.descripcion ||
-        !body.ancho || !body.altura || !body.profundidad || !body.stock || !body.codigoproveedor_fk) {
+        !body.ancho || !body.altura || !body.profundidad || !body.stock || !body.codigoProveedor_fk) {
         throw new Error("Todos los campos son obligatorios.");
     }
     return db.setData(table, body, uniqueField);

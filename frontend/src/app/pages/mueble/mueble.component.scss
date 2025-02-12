@@ -6,12 +6,12 @@ header {
     background-color: #343a40;
     color: #fff;
     padding: 1rem;
-  
+
     h1 {
       margin: 0;
       font-size: 2rem;
     }
-  
+
     h2 {
       margin: 0;
       font-size: 1.5rem;
@@ -19,33 +19,40 @@ header {
       opacity: 0.8;
     }
   }
-  
+
+
+  .contenedor-btn{
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
   /* ============================
            Tabla de Muebles
   =============================== */
   table {
     width: 100%;
     border-collapse: collapse;
-    margin: 1rem 0;
-  
+    margin: 1rem auto;
+    max-width:1000px;
+
     thead {
       background-color: #f8f9fa;
     }
-  
+
     th,
     td {
       padding: 0.75rem;
       border: 1px solid #dee2e6;
       text-align: left;
     }
-  
+
     tbody {
       tr:nth-child(even) {
         background-color: #f2f2f2;
       }
     }
   }
-  
+
   /* ============================
                Botones
   =============================== */
@@ -59,29 +66,32 @@ header {
     color: #fff;
     font-size: 1rem;
     transition: background-color 0.3s ease;
-  
+
     &:hover {
       background-color: #0056b3;
     }
-  
+
     &.eliminar {
       background-color: #dc3545;
-  
+
       &:hover {
         background-color: #c82333;
       }
     }
-  
+
     /* Botón Agregar Mueble */
     &:not(.eliminar) {
       background-color: #28a745;
-  
+
       &:hover {
         background-color: #218838;
       }
     }
   }
-  
+  .btn-agregar{
+    margin-top: 2rem;
+  }
+
   /* ============================
             Modal y Formulario
   =============================== */
@@ -98,7 +108,7 @@ header {
     z-index: 1000;
     padding: 1rem;
   }
-  
+
   .mueble-form {
     background: #fff;
     padding: 2rem;
@@ -108,30 +118,30 @@ header {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-  
+
     h2 {
       margin-top: 0;
       text-align: center;
     }
-  
+
     .form-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 1rem;
-  
+
       @media (max-width: 768px) {
         grid-template-columns: 1fr; /* Una sola columna en pantallas pequeñas */
       }
     }
-  
+
     .form-group {
       display: flex;
       flex-direction: column;
-  
+
       label {
         font-weight: bold;
       }
-  
+
       input,
       select,
       textarea {
@@ -141,22 +151,22 @@ header {
         font-size: 1rem;
         width: 100%;
       }
-  
+
       textarea {
         resize: vertical;
         min-height: 80px;
       }
-  
+
       &.full-width {
         grid-column: span 2;
       }
     }
-  
+
     .form-actions {
       display: flex;
       justify-content: space-between;
       margin-top: 1rem;
-  
+
       button {
         flex: 1;
         margin: 0.5rem;
@@ -166,5 +176,4 @@ header {
       }
     }
   }
-  
-  
+

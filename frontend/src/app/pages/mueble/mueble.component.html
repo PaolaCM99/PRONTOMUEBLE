@@ -2,7 +2,11 @@
     <h1>Prontomueble</h1>
     <h2>Gestión de Muebles</h2>
   </header>
-  
+
+  <div class="contenedor-btn">
+    <button type="button" class="btn-agregar" (click)="abrirFormulario()">Agregar Mueble</button>
+  </div>
+
   <table>
     <thead>
       <tr>
@@ -34,9 +38,7 @@
       </tr>
     </tbody>
   </table>
-  
-  <button type="button" (click)="abrirFormulario()">Agregar Mueble</button>
-  
+
   <div class="modal-mueble" *ngIf="mostrarFormulario">
     <div class="mueble-form">
       <h2>{{ editando ? 'Editar Mueble' : 'Agregar Mueble' }}</h2>
@@ -46,58 +48,57 @@
             <label for="color">Color:</label>
             <input type="text" id="color" [(ngModel)]="muebleForm.color" name="color" required />
           </div>
-  
+
           <div class="form-group">
             <label for="precio">Precio:</label>
             <input type="number" id="precio" [(ngModel)]="muebleForm.precio" name="precio" required />
           </div>
-  
+
           <div class="form-group">
             <label for="material">Material:</label>
             <input type="text" id="material" [(ngModel)]="muebleForm.material" name="material" required />
           </div>
-  
+
           <div class="form-group">
             <label for="tipo">Tipo:</label>
             <input type="text" id="tipo" [(ngModel)]="muebleForm.tipo" name="tipo" required />
           </div>
-  
+
           <div class="form-group full-width">
             <label for="descripcion">Descripción:</label>
             <textarea id="descripcion" [(ngModel)]="muebleForm.descripcion" name="descripcion" required></textarea>
           </div>
-  
+
           <div class="form-group">
             <label for="ancho">Ancho (cm):</label>
             <input type="number" step="0.01" id="ancho" [(ngModel)]="muebleForm.ancho" name="ancho" required />
           </div>
-  
+
           <div class="form-group">
             <label for="altura">Altura (cm):</label>
             <input type="number" step="0.01" id="altura" [(ngModel)]="muebleForm.altura" name="altura" required />
           </div>
-  
+
           <div class="form-group">
             <label for="profundidad">Profundidad (cm):</label>
             <input type="number" step="0.01" id="profundidad" [(ngModel)]="muebleForm.profundidad" name="profundidad" required />
           </div>
-  
+
           <div class="form-group">
             <label for="stock">Stock:</label>
             <input type="number" id="stock" [(ngModel)]="muebleForm.stock" name="stock" required />
           </div>
           <div class="form-group full-width">
             <label for="proveedor">Proveedor:</label>
-            <select id="proveedor" name="codigoProveedor_fk" [(ngModel)]="muebleForm.codigoProveedor_fk"
-              (change)="muebleForm.codigoProveedor_fk = convertirANumero(muebleForm.codigoProveedor_fk)">
-              <option *ngFor="let proveedor of proveedores" [value]="proveedor.codigoProveedor">
+            <select id="proveedor" name="codigoProveedor_fk" [(ngModel)]="muebleForm.codigoProveedor_fk">
+              <option *ngFor="let proveedor of proveedores" [value]="proveedor.codigoproveedor">
                 {{ proveedor.nombre }}
               </option>
             </select>
           </div>
-          
+
         </div>
-  
+
         <div class="form-actions">
           <button type="submit">{{ editando ? 'Actualizar' : 'Guardar' }}</button>
           <button type="button" (click)="cerrarFormulario()">Cancelar</button>
@@ -105,4 +106,3 @@
       </form>
     </div>
   </div>
-  
