@@ -3,6 +3,11 @@
   <h2>Proveedores</h2>
 </header>
 
+<div class="contenedor-btn">
+  <button (click)="abrirFormulario()">Agregar Proveedor</button>
+</div>
+
+
 <table>
   <thead>
     <tr>
@@ -26,8 +31,6 @@
     </tr>
   </tbody>
 </table>
-
-<button (click)="abrirFormulario()">Agregar Proveedor</button>
 
 <div class="modal-proveedor" *ngIf="mostrarFormulario">
   <div class="proveedor-form">

@@ -3,6 +3,10 @@
   <h2>Empleados</h2>
 </header>
 
+<div class="contenedor-btn">
+<button type="button" (click)="abrirFormulario()">Agregar Empleado</button>
+</div>
+
 <table>
   <thead>
     <tr>
@@ -29,7 +33,7 @@
   </tbody>
 </table>
 
-<button type="button" (click)="abrirFormulario()">Agregar Empleado</button>
+
 
 <div class="modal-empleado" *ngIf="mostrarFormulario">
   <div class="empleado-form">

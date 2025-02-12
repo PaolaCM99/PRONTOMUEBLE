@@ -1,0 +1,19 @@
+.report-container {
+  max-width: 1000px;
+    margin: 20px auto;
+
+    section{
+        margin-bottom: 20px;
+        background-color: #f8f9fa;
+        padding: 1rem;
+        ul{
+            list-style: none;
+            padding: 2rem;
+            li{
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 0.5rem;
+            }
+        }
+    }
+}

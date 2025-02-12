@@ -8,6 +8,7 @@ const employee = require('./modules/employee/routers');
 const auth = require('./modules/auth/routers');
 const report = require('./modules/reports/routers');
 const muebles = require ('./modules/mueble/routers');
+const sales= require ('./modules/sales/routers');
 
 //_____________Configuración___________
 app.use(express.json());
@@ -25,6 +26,7 @@ app.use('/muebles', muebles)
 
 app.use('/autenticacion', auth)
 app.use('/reportes', report)
+app.use('/ventas', sales)
 
 
 module.exports = app;

@@ -1,8 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-reportes',
-  imports: [],
+  imports: [CommonModule, FormsModule],
   templateUrl: './reportes.component.html',
   styleUrl: './reportes.component.scss'
 })

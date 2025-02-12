@@ -1,49 +1,82 @@
 <header>
-  <h1>Prontomueble</h1>
-  <h2>Ventas</h2>
+  <h1>Prontoventa</h1>
+  <h2> Gestión de ventas</h2>
 </header>
 
-
-<div class="container">
-    <h2>Registrar Venta</h2>
-
-    <form >
-        <!-- Fecha -->
-        <label for="fecha">Fecha:</label>
-        <input type="date" id="fecha"  name="fecha" required>
-
-        <!-- Total -->
-        <label for="total">Total ($):</label>
-        <input type="number" step="0.01" id="total" name="total" required>
-
-        <!-- Método de Pago -->
-        <label for="metodoPago">Método de Pago:</label>
-        <select id="metodoPago"  name="metodoPago" required>
-            <option value="Efectivo">Efectivo</option>
-            <option value="Tarjeta de Crédito">Tarjeta de Crédito</option>
-            <option value="Transferencia Bancaria">Transferencia Bancaria</option>
-        </select>
-
-        <!-- Código Cliente (Lista Desplegable) -->
-        <label for="codigoCliente">Código Cliente:</label>
-        <select id="codigoCliente"  name="codigoCliente" required>
-            <option *ngFor="let cliente of clientes" [value]="cliente.codigoCliente">
-                {{ cliente.codigoCliente }} - {{ cliente.nombre }}
-            </option>
-        </select>
-
-        <!-- Código Mueble (Lista Desplegable) -->
-        <label for="codigoMueble">Código Mueble:</label>
-        <select id="codigoMueble" name="codigoMueble" required>
-            <option *ngFor="let mueble of muebles" [value]="mueble.idMueble">
-                {{ mueble.idMueble }} - {{ mueble.tipo }} ({{ mueble.color }})
-            </option>
-        </select>
-        <label for="codigoEmpleado">Código Empleado:</label>
-        <select id="codigoEmpleado" name="codigoEmpleado" required>
-            <option ></option>
-        </select>
-
-        <button type="submit">Guardar Venta</button>
-    </form>
+<div class="contenedor-btn">
+  <button type="button" class="btn-agregar" (click)="abrirFormulario()">Registrar venta</button>
 </div>
+
+ <table>
+  <thead>
+    <tr>
+
+      <th>Cantidad</th>
+      <th>Fecha</th>
+      <th>Valor</th>
+      <th>Documento Empleado</th>
+      <th>Documento Cliente</th>
+      <th>Código Pago</th>
+      <th>ID venta</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let venta of ventas; trackBy: trackById">
+      <td>{{ venta.cantidad }}</td>
+      <td>{{ venta.fecha | date }}</td>
+      <td>{{ venta.valor | currency }}</td>
+      <td>{{ venta.documento_empl_fk }}</td>
+      <td>{{ venta.documento_cli_fk }}</td>
+      <td>{{ venta.codigopago_fk }}</td>
+      <td>{{ venta.idventa_fk }}</td>
+      <td>
+        <button type="button" (click)="editarventa(venta)">Editar</button>
+        <button type="button" (click)="eliminarventa(venta)" class="eliminar">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<div class="modal-venta" *ngIf="mostrarFormulario">
+  <div class="venta-form">
+    <h2>{{ editando ? 'Editar venta' : 'Agregar venta' }}</h2>
+    <form (ngSubmit)="guardarventa()">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="cantidad">Cantidad:</label>
+          <input type="text" id="cantidad" [(ngModel)]="ventaForm.cantidad" name="cantidad" required />
+        </div>
+
+        <div class="form-group">
+          <label for="fecha">fecha:</label>
+          <input type="text" id="fecha" [(ngModel)]="ventaForm.fecha" name="fecha" required />
+        </div>
+
+        <div class="form-group">
+          <label for="valor">valor:</label>
+          <input type="number" id="valor" [(ngModel)]="ventaForm.valor" name="valor" required />
+        </div>
+
+        <div class="form-group">
+          <label for="empleado">empleado:</label>
+          <input type="text" id="empleado" [(ngModel)]="ventaForm.empleado" name="empleado" required />
+        </div>
+
+        <div class="form-group">
+          <label for="cliente">cliente:</label>
+          <input type="text" id="cliente" [(ngModel)]="ventaForm.cliente" name="cliente" required />
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+        <button type="submit">{{ editando ? 'Actualizar' : 'Guardar' }}</button>
+        <button type="button" (click)="cerrarFormulario()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+

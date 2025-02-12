@@ -3,6 +3,10 @@
   <h2>Clientes</h2>
 </header>
 
+<div class="contenedor-btn">
+<button type="button" (click)="abrirFormulario()">Agregar cliente</button>
+</div>
+
 <table>
   <thead>
     <tr>
@@ -29,7 +33,7 @@
   </tbody>
 </table>
 
-<button type="button" (click)="abrirFormulario()">Agregar Cliente</button>
+
 
 <div class="modal-cliente" *ngIf="mostrarFormulario">
   <div class="cliente-form">

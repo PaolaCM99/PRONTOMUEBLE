@@ -4,32 +4,35 @@
 </header>
 
 <div class="report-container">
-
-
   <section class="top-seller">
-    <h2>Vendedor con más Ventas</h2>
+    <h2>Vendedor con más ventas</h2>
     <p>{{ topSeller.name }} - {{ topSeller.sales }} ventas</p>
+    <button>Descargar</button>
   </section>
 
   <section class="new-customers">
-    <h2>Clientes Nuevos</h2>
+    <h2>Clientes nuevos</h2>
     <ul>
       <li *ngFor="let customer of newCustomers">{{ customer.name }} - {{ customer.registrationDate }}</li>
     </ul>
+
+    <button>Descargar</button>
   </section>
 
   <section class="top-customers">
-    <h2>Clientes con Mayores Compras</h2>
+    <h2>Clientes con mayores compras</h2>
     <ul>
       <li *ngFor="let customer of topCustomers">{{ customer.name }} - ${{ customer.totalSpent }}</li>
     </ul>
+    <button>Descargar</button>
   </section>
 
   <section class="top-selling-furniture">
-    <h2>Los Muebles Más Vendidos</h2>
+    <h2>Los muebles más vendidos</h2>
     <ul>
       <li *ngFor="let furniture of topSellingFurniture">{{ furniture.name }} - {{ furniture.unitsSold }} unidades</li>
     </ul>
+    <button>Descargar</button>
   </section>
 </div>
 
