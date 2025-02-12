@@ -46,6 +46,7 @@ export class MuebleComponent implements OnInit {
     this.http.get(this.API_URL).subscribe(
       (response: any) => {
         this.muebles = response.data || [];
+        console.log("Muebles:", this.muebles);
       },
       (error) => {
         console.error("Error al obtener muebles:", error);
@@ -58,7 +59,6 @@ export class MuebleComponent implements OnInit {
     this.http.get(this.API_PROVEEDORES).subscribe(
       (response: any) => {
         this.proveedores = response.data || [];
-        console.log("Proveedores:", this.proveedores);
       },
       (error) => {
         console.error("Error al obtener proveedores:", error);

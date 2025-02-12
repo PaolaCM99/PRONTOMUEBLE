@@ -8,42 +8,26 @@ function getSeller(body) {
         throw new Error("El campo 'mes' es obligatorio.");
     }
     return db.getSeller(table, body);
-
-}
-function getAll() {
-    return db.getAll(table);
 }
 
-function getById(id) {
-    return db.getById(table, id, uniqueField);
+function getBestClients() {
+    return db.getBestClients(table);
 }
 
-function setCustomer(body) {
-    if (!body.documento) {
-        throw new Error("El campo 'documento' es obligatorio.");
+function getMostSoldFurniture() {
+    return db.getMostSoldFurniture(table);
+}
+
+function getNewClients(body) {
+    if (!body.mes) {
+        throw new Error("El campo 'mes' es obligatorio.");
     }
-    return db.setData(table, body, uniqueField);
-}
-
-function updateCustomer(body) {
-    if (!body.documento) {
-        throw new Error("El campo 'documento' es obligatorio para actualizar.");
-    }
-    return db.updateData(table, body, uniqueField);
-}
-
-function remove(body) {
-    if (!body.documento) {
-        throw new Error("El campo 'documento' es obligatorio para eliminar.");
-    }
-    return db.deleteData(table, body, uniqueField);
+    return db.getNewClients(body);
 }
 
 module.exports = {
-    getAll,
-    getById,
-    setCustomer,
-    updateCustomer,  // ✅ Se agregó la función de actualización
-    remove,
-    getSeller
+    getSeller,
+    getBestClients,
+    getMostSoldFurniture,
+    getNewClients
 };

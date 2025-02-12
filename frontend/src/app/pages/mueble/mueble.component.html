@@ -30,7 +30,7 @@
         <td>{{ mueble.descripcion }}</td>
         <td>{{ mueble.ancho }} x {{ mueble.altura }} x {{ mueble.profundidad }}</td>
         <td>{{ mueble.stock }}</td>
-        <td>{{ mueble.codigoProveedor }}</td>
+        <td>{{ proveedores[mueble?.codigoproveedor_fk]?.nombre}}</td>
         <td>
           <button type="button" (click)="editarMueble(mueble)">Editar</button>
           <button type="button" (click)="eliminarMueble(mueble)" class="eliminar">Eliminar</button>
@@ -90,9 +90,10 @@
           </div>
           <div class="form-group full-width">
             <label for="proveedor">Proveedor:</label>
-            <select id="proveedor" name="codigoProveedor_fk" [(ngModel)]="muebleForm.codigoProveedor_fk">
+            <select id="proveedor" name="codigoProveedor_fk" [(ngModel)]="muebleForm.codigoProveedor_fk"
+            (change)="muebleForm.codigoProveedor_fk = convertirANumero(muebleForm.codigoProveedor_fk)">
               <option *ngFor="let proveedor of proveedores" [value]="proveedor.codigoproveedor">
-                {{ proveedor.nombre }}
+                {{proveedor.nombre}}
               </option>
             </select>
           </div>

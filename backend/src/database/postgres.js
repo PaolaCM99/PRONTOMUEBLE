@@ -52,8 +52,53 @@ async function authUser(table, authData, uniqueField) {
 }
 
 async function getSeller(table, data) {
-  console.log("obteniendo vendedor en db", data, table);
-  sentence = `SELECT e.documento AS documento_vendedor, e.nombre AS nombre_vendedor, e.apellido AS apellido_vendedor, DATE_TRUNC('month',v.fecha) AS mes, SUM(v.valor) AS total_vendido FROM ${table} v JOIN EMPLEADO e ON v.documento_empl_fk=e.documento WHERE DATE_TRUNC('month',v.fecha)='${data.mes}' GROUP BY e.documento,e.nombre,e.apellido,mes ORDER BY total_vendido DESC LIMIT 1;`
+  const sentence = `SELECT 
+                    e.documento AS documento_vendedor,
+                    e.nombre AS nombre_vendedor,
+                    e.apellido AS apellido_vendedor,
+                    DATE_TRUNC('month',v.fecha) AS mes,
+                    SUM(v.valor) AS total_vendido FROM ${table} v
+                    JOIN EMPLEADO e ON v.documento_empl_fk=e.documento
+                    WHERE DATE_TRUNC('month',v.fecha)='${data.mes}'
+                    GROUP BY e.documento,e.nombre,e.apellido,mes ORDER BY total_vendido DESC LIMIT 1;`
+  return await queryDatabase(sentence);
+}
+
+async function getBestClients() {
+  const sentence = `SELECT  
+                    c.documento,  
+                    c.nombre,  
+                    c.apellido,  
+                    SUM(v.valor) AS total_compras  
+                    FROM VENTA v  
+                    JOIN CLIENTE c ON v.documento_cli_fk=c.documento  
+                    GROUP BY c.documento,c.nombre,c.apellido  
+                    ORDER BY total_compras DESC  
+                    LIMIT 5;`;
+  return await queryDatabase(sentence);
+}
+
+async function getMostSoldFurniture() {
+  const sentence = `SELECT  
+                      m.idMueble,  
+                      m.tipo,  
+                      m.color,  
+                      SUM(v.cantidad) AS total_vendido  
+                  FROM VENTA v  
+                  JOIN MUEBLE m ON v.idMueble_fk = m.idMueble  
+                  GROUP BY m.idMueble, m.tipo, m.color  
+                  ORDER BY total_vendido DESC;`;
+  return await queryDatabase(sentence);
+}
+
+async function getNewClients(data) {
+  const sentence = `SELECT  
+                        c.documento,  
+                        c.nombre,  
+                        c.apellido,  
+                        c.f_registro AS fecha_registro
+                    FROM CLIENTE c
+                    WHERE DATE_TRUNC('month',c.f_registro)='${data.mes}';`;
   return await queryDatabase(sentence);
 }
 
@@ -64,5 +109,8 @@ module.exports = {
   updateData,
   deleteData,
   authUser,
-  getSeller
+  getSeller,
+  getBestClients,
+  getMostSoldFurniture,
+  getNewClients
 };
