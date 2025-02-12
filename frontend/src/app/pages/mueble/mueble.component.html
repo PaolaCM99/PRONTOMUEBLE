@@ -1,53 +1,108 @@
-<div class="container">
-    <h2>Registrar Mueble</h2>
-
-    <form (submit)="guardarMueble()">
-        <!-- Color -->
-        <label for="color">Color:</label>
-        <input type="text" id="color"  name="color" required>
-
-        <!-- Precio -->
-        <label for="precio">Precio:</label>
-        <input type="number" id="precio"  name="precio" required>
-
-        <!-- Material -->
-        <label for="material">Material:</label>
-        <input type="text" id="material"  name="material" required>
-
-        <!-- Tipo -->
-        <label for="tipo">Tipo:</label>
-        <input type="text" id="tipo"  name="tipo" required>
-
-        <!-- Descripción -->
-        <label for="descripcion">Descripción:</label>
-        <textarea id="descripcion"  name="descripcion" required></textarea>
-
-        <!-- Ancho -->
-        <label for="ancho">Ancho (cm):</label>
-        <input type="number" step="0.01" id="ancho"  name="ancho" required>
-
-        <!-- Altura -->
-        <label for="altura">Altura (cm):</label>
-        <input type="number" step="0.01" id="altura"  name="altura" required>
-
-        <!-- Profundidad -->
-        <label for="profundidad">Profundidad (cm):</label>
-        <input type="number" step="0.01" id="profundidad"  name="profundidad" required>
-
-        <!-- Stock -->
-        <label for="stock">Stock:</label>
-        <input type="number" id="stock"  name="stock" required>
-
-    
-
-        <!-- Código de Proveedor (Lista desplegable) -->
-        <label for="codigoProveedor">Código de Proveedor:</label>
-        <select id="codigoProveedor"  name="codigoProveedor" required>
-            <option *ngFor="let proveedor of proveedores" [value]="proveedor.codigoProveedor">
-                {{ proveedor.codigoProveedor }} - {{ proveedor.nombre }}
-            </option>
-        </select>
-
-        <button type="submit">Guardar Mueble</button>
-    </form>
-</div>
+<header>
+    <h1>Prontomueble</h1>
+    <h2>Gestión de Muebles</h2>
+  </header>
+  
+  <table>
+    <thead>
+      <tr>
+        <th>Color</th>
+        <th>Precio</th>
+        <th>Material</th>
+        <th>Tipo</th>
+        <th>Descripción</th>
+        <th>Dimensiones (cm)</th>
+        <th>Stock</th>
+        <th>Proveedor</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let mueble of muebles; trackBy: trackById">
+        <td>{{ mueble.color }}</td>
+        <td>{{ mueble.precio | currency }}</td>
+        <td>{{ mueble.material }}</td>
+        <td>{{ mueble.tipo }}</td>
+        <td>{{ mueble.descripcion }}</td>
+        <td>{{ mueble.ancho }} x {{ mueble.altura }} x {{ mueble.profundidad }}</td>
+        <td>{{ mueble.stock }}</td>
+        <td>{{ mueble.codigoProveedor }}</td>
+        <td>
+          <button type="button" (click)="editarMueble(mueble)">Editar</button>
+          <button type="button" (click)="eliminarMueble(mueble)" class="eliminar">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <button type="button" (click)="abrirFormulario()">Agregar Mueble</button>
+  
+  <div class="modal-mueble" *ngIf="mostrarFormulario">
+    <div class="mueble-form">
+      <h2>{{ editando ? 'Editar Mueble' : 'Agregar Mueble' }}</h2>
+      <form (ngSubmit)="guardarMueble()">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="color">Color:</label>
+            <input type="text" id="color" [(ngModel)]="muebleForm.color" name="color" required />
+          </div>
+  
+          <div class="form-group">
+            <label for="precio">Precio:</label>
+            <input type="number" id="precio" [(ngModel)]="muebleForm.precio" name="precio" required />
+          </div>
+  
+          <div class="form-group">
+            <label for="material">Material:</label>
+            <input type="text" id="material" [(ngModel)]="muebleForm.material" name="material" required />
+          </div>
+  
+          <div class="form-group">
+            <label for="tipo">Tipo:</label>
+            <input type="text" id="tipo" [(ngModel)]="muebleForm.tipo" name="tipo" required />
+          </div>
+  
+          <div class="form-group full-width">
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" [(ngModel)]="muebleForm.descripcion" name="descripcion" required></textarea>
+          </div>
+  
+          <div class="form-group">
+            <label for="ancho">Ancho (cm):</label>
+            <input type="number" step="0.01" id="ancho" [(ngModel)]="muebleForm.ancho" name="ancho" required />
+          </div>
+  
+          <div class="form-group">
+            <label for="altura">Altura (cm):</label>
+            <input type="number" step="0.01" id="altura" [(ngModel)]="muebleForm.altura" name="altura" required />
+          </div>
+  
+          <div class="form-group">
+            <label for="profundidad">Profundidad (cm):</label>
+            <input type="number" step="0.01" id="profundidad" [(ngModel)]="muebleForm.profundidad" name="profundidad" required />
+          </div>
+  
+          <div class="form-group">
+            <label for="stock">Stock:</label>
+            <input type="number" id="stock" [(ngModel)]="muebleForm.stock" name="stock" required />
+          </div>
+          <div class="form-group full-width">
+            <label for="proveedor">Proveedor:</label>
+            <select id="proveedor" name="codigoProveedor_fk" [(ngModel)]="muebleForm.codigoProveedor_fk"
+              (change)="muebleForm.codigoProveedor_fk = convertirANumero(muebleForm.codigoProveedor_fk)">
+              <option *ngFor="let proveedor of proveedores" [value]="proveedor.codigoProveedor">
+                {{ proveedor.nombre }}
+              </option>
+            </select>
+          </div>
+          
+        </div>
+  
+        <div class="form-actions">
+          <button type="submit">{{ editando ? 'Actualizar' : 'Guardar' }}</button>
+          <button type="button" (click)="cerrarFormulario()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
