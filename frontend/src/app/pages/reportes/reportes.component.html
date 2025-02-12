@@ -3,36 +3,114 @@
   <h2>Generación de reportes mensuales</h2>
 </header>
 
+<div class="date">
+  <div class="month-year-selector">
+    <div class="month-selector">
+      <label for="month">Seleccionar mes:</label>
+      <select id="month" [(ngModel)]="selectedMonth" (change)="onMonthChange()">
+        <option *ngFor="let month of months" [value]="month.value">{{ month.name }}</option>
+      </select>
+    </div>
+
+    <div class="year-selector">
+      <label for="year">Seleccionar año:</label>
+      <select id="year" [(ngModel)]="selectedYear" (change)="onYearChange()">
+        <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+      </select>
+    </div>
+  </div>
+</div>
+
 <div class="report-container">
   <section class="top-seller">
-    <h2>Vendedor con más ventas</h2>
-    <p>{{ topSeller.name }} - {{ topSeller.sales }} ventas</p>
-    <button>Descargar</button>
+
+    <div class="list">
+      <h2>Vendedor con más ventas</h2>
+      <button>Descargar</button>
+    </div>
+    <table>
+      <tr>
+        <th>Documento</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Mes</th>
+        <th>Total Vendido</th>
+      </tr>
+      <tr>
+        <td>{{topSeller?.documento_vendedor}}</td>
+        <td>{{topSeller?.nombre_vendedor}}</td>
+        <td>{{topSeller?.apellido_vendedor}}</td>
+        <td>{{topSeller?.mes | date}}</td>
+        <td>{{topSeller?.total_vendido}}</td>
+      </tr>
+    </table>
   </section>
 
   <section class="new-customers">
-    <h2>Clientes nuevos</h2>
-    <ul>
-      <li *ngFor="let customer of newCustomers">{{ customer.name }} - {{ customer.registrationDate }}</li>
-    </ul>
 
-    <button>Descargar</button>
+    <div class="list">
+      <h2>Clientes nuevos</h2>
+      <button>Descargar</button>
+    </div>
+    <table>
+      <tr>
+        <th>Documento</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Fecha de Registro</th>
+      </tr>
+      <tr *ngFor="let newCustomer of newCustomers">
+        <td>{{newCustomer?.documento}}</td>
+        <td>{{newCustomer?.nombre}}</td>
+        <td>{{newCustomer?.apellido}}</td>
+        <td>{{newCustomer?.fecha_registro | date}}</td>
+      </tr>
+    </table>
+
   </section>
 
   <section class="top-customers">
-    <h2>Clientes con mayores compras</h2>
-    <ul>
-      <li *ngFor="let customer of topCustomers">{{ customer.name }} - ${{ customer.totalSpent }}</li>
-    </ul>
-    <button>Descargar</button>
+
+    <div class="list">
+      <h2>Clientes con mayores compras</h2>
+      <button>Descargar</button>
+    </div>
+    <table>
+      <tr>
+        <th>Documento</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>documento</th>
+      </tr>
+      <tr *ngFor="let top of topCustomers">
+        <td>{{top?.documento}}</td>
+        <td>{{top?.nombre}}</td>
+        <td>{{top?.apellido}}</td>
+        <td>{{top?.documento }}</td>
+      </tr>
+    </table>
   </section>
 
   <section class="top-selling-furniture">
-    <h2>Los muebles más vendidos</h2>
-    <ul>
-      <li *ngFor="let furniture of topSellingFurniture">{{ furniture.name }} - {{ furniture.unitsSold }} unidades</li>
-    </ul>
-    <button>Descargar</button>
+
+    <div class="list">
+      <h2>Los muebles más vendidos</h2>
+      <button>Descargar</button>
+    </div>
+    <table>
+      <tr>
+        <th>ID Mueble</th>
+        <th>Tipo</th>
+        <th>Color</th>
+        <th>Total Vendido</th>
+      </tr>
+      <tr *ngFor="let furniture of topSellingFurniture">
+        <td>{{furniture.idmueble}}</td>
+        <td>{{furniture.tipo}}</td>
+        <td>{{furniture.color}}</td>
+        <td>{{furniture.total_vendido}}</td>
+      </tr>
+    </table>
+
   </section>
 </div>
-

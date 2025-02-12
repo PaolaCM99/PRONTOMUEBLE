@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
@@ -14,8 +15,12 @@ export class ReportesComponent {
   newCustomers: any[] = [];
   topCustomers: any[] = [];
   topSellingFurniture: any[] = [];
+  newCustomerUrl = 'http://localhost:4000/reportes/clientes_nuevos'
+  topCustomerUrl = 'http://localhost:4000/reportes/clientes'
+  topSellerUrl = 'http://localhost:4000/reportes/vendedor'
+  topSellingFurnitureUrl = 'http://localhost:4000/reportes/muebles'
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
     this.getTopSeller();
@@ -24,29 +29,68 @@ export class ReportesComponent {
     this.getTopSellingFurniture();
   }
 
-  getTopSeller() {
-    this.topSeller = { name: 'Juan Pérez', sales: 150 };
+  getTopSeller(date?: string) {
+    this.http.post(this.topSellerUrl, {
+      "mes": "2024-04-01",
+    }).subscribe((data: any) => {
+      this.topSeller = data.data[0];
+    });
   }
 
-  getNewCustomers() {
-    this.newCustomers = [
-      { name: 'Carlos Gómez', registrationDate: '2025-02-01' },
-      { name: 'Ana Torres', registrationDate: '2025-02-05' }
-    ];
+  getNewCustomers(date: string = '2024-04-01') {
+    this.http.post<{ data: any[] }>(this.newCustomerUrl, {
+      "mes": date,
+    }).subscribe((res) => {
+      this.newCustomers = res?.data;
+    });
   }
 
-  getTopCustomers() {
-    this.topCustomers = [
-      { name: 'Juan Pérez', totalSpent: 1200 },
-      { name: 'Laura Fernández', totalSpent: 950 }
-    ];
+  getTopCustomers(date?: string) {
+    this.http.get<{ data: any[] }>(this.topCustomerUrl).subscribe((res) => {
+      this.topCustomers = res?.data;
+    });
   }
 
-  getTopSellingFurniture() {
-    this.topSellingFurniture = [
-      { name: 'Sofá Rojo', unitsSold: 30 },
-      { name: 'Mesa de Comedor', unitsSold: 25 }
-    ];
+  getTopSellingFurniture(date?: string) {
+    this.http.get<{ data: any[] }>(this.topSellingFurnitureUrl).subscribe((res) => {
+      this.topSellingFurniture = res?.data;
+    });
   }
+
+  selectedMonth: string = '01';
+  selectedYear: string = '2024';
+  months = [
+    { name: 'Enero', value: '01' },
+    { name: 'Febrero', value: '02' },
+    { name: 'Marzo', value: '03' },
+    { name: 'Abril', value: '04' },
+    { name: 'Mayo', value: '05' },
+    { name: 'Junio', value: '06' },
+    { name: 'Julio', value: '07' },
+    { name: 'Agosto', value: '08' },
+    { name: 'Septiembre', value: '09' },
+    { name: 'Octubre', value: '10' },
+    { name: 'Noviembre', value: '11' },
+    { name: 'Diciembre', value: '12' }
+  ];
+  years = Array.from({ length: 10 }, (_, i) => (new Date().getFullYear() - i).toString());
+
+  onMonthChange() {
+    this.updateReports();
+  }
+
+  onYearChange() {
+    this.updateReports();
+  }
+
+  updateReports() {
+    const selectedDate = `${this.selectedYear}-${this.selectedMonth}-01`;
+    this.getTopSeller(selectedDate);
+    this.getNewCustomers(selectedDate);
+    this.getTopCustomers(selectedDate);
+    this.getTopSellingFurniture(selectedDate);
+  }
+
+
 
 }
