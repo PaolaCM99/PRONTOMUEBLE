@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import * as FileSaver from 'file-saver';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-reportes',
@@ -31,7 +33,7 @@ export class ReportesComponent {
 
   getTopSeller(date?: string) {
     this.http.post(this.topSellerUrl, {
-      "mes": "2024-04-01",
+      "mes": date,
     }).subscribe((data: any) => {
       this.topSeller = data.data[0];
     });
@@ -45,13 +47,13 @@ export class ReportesComponent {
     });
   }
 
-  getTopCustomers(date?: string) {
+  getTopCustomers() {
     this.http.get<{ data: any[] }>(this.topCustomerUrl).subscribe((res) => {
       this.topCustomers = res?.data;
     });
   }
 
-  getTopSellingFurniture(date?: string) {
+  getTopSellingFurniture() {
     this.http.get<{ data: any[] }>(this.topSellingFurnitureUrl).subscribe((res) => {
       this.topSellingFurniture = res?.data;
     });
@@ -73,7 +75,7 @@ export class ReportesComponent {
     { name: 'Noviembre', value: '11' },
     { name: 'Diciembre', value: '12' }
   ];
-  years = Array.from({ length: 10 }, (_, i) => (new Date().getFullYear() - i).toString());
+  years = Array.from({ length: 3 }, (_, i) => (new Date().getFullYear() - i).toString());
 
   onMonthChange() {
     this.updateReports();
@@ -87,10 +89,20 @@ export class ReportesComponent {
     const selectedDate = `${this.selectedYear}-${this.selectedMonth}-01`;
     this.getTopSeller(selectedDate);
     this.getNewCustomers(selectedDate);
-    this.getTopCustomers(selectedDate);
-    this.getTopSellingFurniture(selectedDate);
   }
 
+  downloadReport(data: any[], fileName: string) {
+    if (!data || data.length === 0) {
+      alert('No hay datos para descargar.');
+      return;
+    }
 
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
+    const workbook: XLSX.WorkBook = { Sheets: { 'Reporte': worksheet }, SheetNames: ['Reporte'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const dataBlob: Blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
+
+    FileSaver.saveAs(dataBlob, `${fileName}.xlsx`);
+  }
 
 }

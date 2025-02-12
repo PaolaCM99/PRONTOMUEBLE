@@ -6,14 +6,14 @@
 <div class="date">
   <div class="month-year-selector">
     <div class="month-selector">
-      <label for="month">Seleccionar mes:</label>
+      <label for="month">Seleccionar mes: </label>
       <select id="month" [(ngModel)]="selectedMonth" (change)="onMonthChange()">
         <option *ngFor="let month of months" [value]="month.value">{{ month.name }}</option>
       </select>
     </div>
 
     <div class="year-selector">
-      <label for="year">Seleccionar año:</label>
+      <label for="year">Seleccionar año: </label>
       <select id="year" [(ngModel)]="selectedYear" (change)="onYearChange()">
         <option *ngFor="let year of years" [value]="year">{{ year }}</option>
       </select>
@@ -26,9 +26,9 @@
 
     <div class="list">
       <h2>Vendedor con más ventas</h2>
-      <button>Descargar</button>
+      <button (click)="downloadReport([topSeller], 'Vendedor_Top')">Descargar</button>
     </div>
-    <table>
+    <table *ngIf="topSeller">
       <tr>
         <th>Documento</th>
         <th>Nombre</th>
@@ -44,15 +44,18 @@
         <td>{{topSeller?.total_vendido}}</td>
       </tr>
     </table>
+    <h5 *ngIf="!topSeller">
+      No se han encontrado datos
+    </h5>
   </section>
 
   <section class="new-customers">
 
     <div class="list">
       <h2>Clientes nuevos</h2>
-      <button>Descargar</button>
+      <button  (click)="downloadReport(newCustomers, 'Clientes_Nuevos')">Descargar</button>
     </div>
-    <table>
+    <table *ngIf="newCustomers">
       <tr>
         <th>Documento</th>
         <th>Nombre</th>
@@ -66,6 +69,9 @@
         <td>{{newCustomer?.fecha_registro | date}}</td>
       </tr>
     </table>
+    <h5 *ngIf="!newCustomers">
+      No se han encontrado datos
+    </h5>
 
   </section>
 
@@ -73,9 +79,9 @@
 
     <div class="list">
       <h2>Clientes con mayores compras</h2>
-      <button>Descargar</button>
+      <button (click)="downloadReport(topCustomers, 'Clientes_Mayores_Compras')">Descargar</button>
     </div>
-    <table>
+    <table *ngIf="topCustomers">
       <tr>
         <th>Documento</th>
         <th>Nombre</th>
@@ -89,13 +95,16 @@
         <td>{{top?.documento }}</td>
       </tr>
     </table>
+    <h5 *ngIf="!topCustomers">
+      No se han encontrado datos
+    </h5>
   </section>
 
   <section class="top-selling-furniture">
 
     <div class="list">
       <h2>Los muebles más vendidos</h2>
-      <button>Descargar</button>
+      <button  (click)="downloadReport(topSellingFurniture, 'muebles_mas_vendidos')">Descargar</button>
     </div>
     <table>
       <tr>

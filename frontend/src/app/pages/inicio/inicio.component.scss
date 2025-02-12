@@ -6,7 +6,7 @@
 
   .contenido {
     flex: 1;
-    padding: 20px;
+    padding: 2rem;
     background: white;
   }
 
@@ -23,7 +23,7 @@
 
   .notificacion {
     background: #f3f3f3;
-    padding: 15px;
+    padding: 2rem;
     border-radius: 5px;
     margin: 20px 0;
   }
@@ -31,4 +31,5 @@
   .notificacion strong {
     display: block;
     font-size: 1.2rem;
+    margin-bottom: 1rem;
   }

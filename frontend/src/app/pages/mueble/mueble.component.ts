@@ -46,7 +46,6 @@ export class MuebleComponent implements OnInit {
     this.http.get(this.API_URL).subscribe(
       (response: any) => {
         this.muebles = response.data || [];
-        console.log("Muebles:", this.muebles);
       },
       (error) => {
         console.error("Error al obtener muebles:", error);
@@ -68,8 +67,7 @@ export class MuebleComponent implements OnInit {
 
   eliminarMueble(mueble: any) {
     if (!confirm(`¿Seguro que deseas eliminar el mueble de color ${mueble.color}?`)) return;
-
-    this.http.delete(`${this.API_URL}/${mueble.id}`).subscribe(
+    this.http.delete(`${this.API_URL}/${mueble.idmueble}`).subscribe(
       () => {
         this.getMuebles();
       },
