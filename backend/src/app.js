@@ -6,6 +6,7 @@ const proveedor = require('./modules/providers/routers');
 const customer = require('./modules/customer/routers');
 const employee = require('./modules/employee/routers');
 const auth = require('./modules/auth/routers');
+const report = require('./modules/reports/routers');
 
 
 //_____________Configuración___________
@@ -21,6 +22,7 @@ app.use('/proveedores', proveedor);
 app.use('/clientes', customer)
 app.use('/empleados', employee)
 app.use('/autenticacion', auth)
+app.use('/reportes', report)
 
 
 module.exports = app;

@@ -51,6 +51,11 @@ async function authUser(table, authData, uniqueField) {
   return await queryDatabase(sentence);
 }
 
+async function getSeller(table, data) {
+  console.log("obteniendo vendedor en db", data, table);
+  sentence = `SELECT e.documento AS documento_vendedor, e.nombre AS nombre_vendedor, e.apellido AS apellido_vendedor, DATE_TRUNC('month',v.fecha) AS mes, SUM(v.valor) AS total_vendido FROM ${table} v JOIN EMPLEADO e ON v.documento_empl_fk=e.documento WHERE DATE_TRUNC('month',v.fecha)='${data.mes}' GROUP BY e.documento,e.nombre,e.apellido,mes ORDER BY total_vendido DESC LIMIT 1;`
+  return await queryDatabase(sentence);
+}
 
 module.exports = {
   getAll,
@@ -58,5 +63,6 @@ module.exports = {
   setData,
   updateData,
   deleteData,
-  authUser
+  authUser,
+  getSeller
 };
